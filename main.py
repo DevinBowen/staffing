@@ -42,10 +42,9 @@ def main():
         for i in range(len(floorList)):
             floorList[i]['cap'] = int(input(f'Enter new RN cap for {floorList[i]["floor"]}: '))
     # 4. Export Excel/CSV file.
-
-
     for i in range(len(floorList)):
         print(f'Floor: {floorList[i]["floor"]}, Cap: {floorList[i]["cap"]}, RNs: {floorList[i]["RNs"]}, PCAs: {floorList[i]["PCAs"]}')
 
+### Main function ###
 if __name__ == '__main__':
     sys.exit(main())
