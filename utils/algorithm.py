@@ -1,39 +1,49 @@
-def RN_algorythm(floor_list, float_rn_list):
-    print('Processing RN algorithm...')
-    # 1. Move Floor RNs to appropriate floors.
+def RN_algorithm(floor_list, float_rn_count):
+    print('\nProcessing RN algorithm...')
     for floor in floor_list:
-        if floor['eRN'] == 0:
+        if floor['eRN'] >= 0:
             continue
-        if floor['eRN'] < 0:
-            for extra in floor_list:
-                if floor['eRN'] == 0:
-                    break
-                if extra['eRN'] > 0:
-                    floor['RN'] -=floor['eRN']
-                    extra['eRN'] += floor['eRN']
-    # 2. Move Float RNs to appropriate floors.
-    for floor in floor_list:
-        if floor['eRN'] < 0 and float_rn_list > floor['eRN']:
-            floor['RN'] -= floor['eRN']
-            float_rn_list += floor['eRN']
-    return floor_list, float_rn_list
+        for extra in floor_list:
+            if floor['RN'] == floor['capRN']:
+                        break
+            elif extra['eRN'] == 0:
+                continue
+            elif extra['eRN'] > 0:
+                for _ in range(extra['eRN']):
+                    if floor['RN'] == floor['capRN']:
+                        break
+                    floor['RN'] += 1
+                    floor['eRN'] += 1
+                    extra['eRN'] -= 1
+        for _ in range(float_rn_count):
+            if floor['RN'] == floor['capRN']:
+                break
+            floor['RN'] += 1
+            float_rn_count -= 1
 
-def PCA_algorythm(floor_list, float_pca_list):
-    print('Processing PCA algorithm...')
-    # 1. Move Floor RNs to appropriate floors.
+    return floor_list, float_rn_count
+
+def PCA_algorithm(floor_list, float_pca_count):
+    print('\nProcessing PCA algorithm...')
     for floor in floor_list:
-        if floor['ePCA'] == 0:
+        if floor['ePCA'] >= 0:
             continue
-        if floor['ePCA'] < 0:
-            for extra in floor_list:
-                if floor['ePCA'] == 0:
-                    break
-                if extra['ePCA'] > 0:
-                    floor['PCA'] -=floor['ePCA']
-                    extra['ePCA'] += floor['ePCA']
-    # 2. Move Float RNs to appropriate floors.
-    for floor in floor_list:
-        if floor['ePCA'] < 0 and float_pca_list > floor['ePCA']:
-            floor['PCA'] -= floor['ePCA']
-            float_pca_list += floor['ePCA']
-    return floor_list, float_pca_list
+        for extra in floor_list:
+            if floor['PCA'] == floor['capPCA']:
+                        break
+            elif extra['ePCA'] == 0:
+                continue
+            elif extra['ePCA'] > 0:
+                for _ in range(extra['ePCA']):
+                    if floor['PCA'] == floor['capPCA']:
+                        break
+                    floor['PCA'] += 1
+                    floor['ePCA'] += 1
+                    extra['ePCA'] -= 1
+        for _ in range(float_pca_count):
+            if floor['PCA'] == floor['capPCA']:
+                break
+            floor['PCA'] += 1
+            float_pca_count -= 1
+
+    return floor_list, float_pca_count
